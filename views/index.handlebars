@@ -1,49 +1,40 @@
-<div class="container">
+<div class="container" style="background-color: #ffffff;">
 
   <!-- Header Row -->
   <div class="row">
     <div class="col-lg-12 text-center">
-      <img src="../public/assets/img/kylo-ren-burger.jpg" width="400px" id="kylo-ren-burger">
+      <img src="/assets/img/kylo-ren-burger.jpg" width="500" id="kylo-ren-burger">
       <h1>Star Wars Burgers! (DUH!)</h1>
     </div>
   </div>
 
   <!-- Three Col Row -->
   <div class="row">
-    <!-- Row One -->
-    <div class="col-lg-4">
-      {{#each burgers}}
-          {{#unless this.devoured}}
-            <div>
-              <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-                <button type="submit" class='menu'> {{this.burger_name}}</button>
-              </form>
-            </div>
-          {{/unless}}
-        {{/each}}
+    <div class="col-lg-6 text-center" style="background-color: #cdcdcd; padding: 25px;">
+      <h2>The Burgers!</h2>
+      <h6>Click on a burger to eat it!<br>GOOD LUCK! LOL!</h6> {{#each burgers}} {{#unless this.devoured}}
+
+      <form action="/burgers/{{this.id}}" method="POST">
+        <button type="submit"> {{this.burger_name}}</button>
+      </form>
+
+      {{/unless}} {{/each}}
     </div>
 
     <!-- Row Two -->
-    <div class="col-lg-4">
-      {{#each burgers}}
-         {{#if this.devoured}}
-           <div class='devouredBurger'>
-             <div>
-               {{this.burger_name}}
-             </div>
-           </div>
-         {{/if}}
-       {{/each}}
+    <div class="col-lg-6 text-center" style="background-color: #bcbcbc; padding: 25px;">
+      <h2>The Devoured Burgers!</h2> {{#each burgers}} {{#if this.devoured}} {{this.devoured}} {{/if}} {{/each}}
     </div>
+  </div>
 
-    <!-- Row Three -->
-    <div class="col-lg-4">
+  <div class="row" style="padding: 25px;">
+    <div class="col-lg-12 text-center">
+      <h3>Add a Star Wars Burger Below!</h3>
       <form action="/burgers" method="POST">
         <input type="text" id="name" name="burger_name">
-        <button type="submit" class="addBurgerBtn">Add The Burger</button>
+        <button type="submit">ADD</button>
       </form>
     </div>
-
   </div>
 
 </div>
