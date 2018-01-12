@@ -1,4 +1,4 @@
-<div class="container" style="background-color: #ffffff;">
+<div class="container-fluid" style="background-color: #ffffff; color: #333333;">
 
   <!-- Header Row -->
   <div class="row">
@@ -10,31 +10,40 @@
 
   <!-- Three Col Row -->
   <div class="row">
-    <div class="col-lg-6 text-center" style="background-color: #cdcdcd; padding: 25px;">
-      <h2>The Burgers!</h2>
-      <h6>Click on a burger to eat it!<br>GOOD LUCK! LOL!</h6> {{#each burgers}} {{#unless this.devoured}}
+    <div class="col-lg-1"></div>
+    <!-- COL 1 -->
+    <div class="col-lg-3 text-center" style="background-color: green; padding: 25px;">
+      <h2>Uneaten Burgers</h2> {{#each burgers}} {{#unless this.devoured}}
 
-      <form action="/burgers/{{this.id}}" method="POST">
-        <button type="submit"> {{this.burger_name}}</button>
-      </form>
+      <div>{{this.id}}. {{this.burger_name}}
+        <form action="burgers/updateOne/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="devoured" value="true">
+          <button type="submit">DEVOUR THIS!</button>
+        </form>
+      </div>
 
       {{/unless}} {{/each}}
+
     </div>
 
-    <!-- Row Two -->
-    <div class="col-lg-6 text-center" style="background-color: #bcbcbc; padding: 25px;">
-      <h2>The Devoured Burgers!</h2> {{#each burgers}} {{#if this.devoured}} {{this.devoured}} {{/if}} {{/each}}
-    </div>
-  </div>
-
-  <div class="row" style="padding: 25px;">
-    <div class="col-lg-12 text-center">
-      <h3>Add a Star Wars Burger Below!</h3>
-      <form action="/burgers" method="POST">
-        <input type="text" id="name" name="burger_name">
-        <button type="submit">ADD</button>
+    <!-- COL 2 -->
+    <div class="col-lg-4" style="background-color: #ffffff;; padding: 25px;">
+      <h3 class="text-center">Create a Starwars Burger, Put it on the menu, AND EAT IT!</h3>
+      <form action="burgers/insertOne" method="POST">
+        <div style="text-align: center;">
+          <textarea type="text" name="name"></textarea><br>
+          <button type="submit">Put it on the Menu!</button>
+        </div>
       </form>
     </div>
-  </div>
 
+    <!-- COL 3 -->
+    <div class="col-lg-3 text-center" style="background-color: red; padding: 25px;">
+      <h2>Eaten Burgers</h2> {{#each burgers}} {{#if this.devoured}}
+
+      <span>{{this.id}}. {{this.burger_name}}</span> {{/if}} {{/each}}
+
+    </div>
+  </div>
+  <div class="col-lg-1"></div>
 </div>

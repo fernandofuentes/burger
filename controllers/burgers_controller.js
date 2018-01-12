@@ -1,39 +1,38 @@
-// Required
-var express = require("express");
+// Require
+
+var express = require('express');
 var router = express.Router();
+var burger = require('../models/burger.js');
 
-// Import the model (burger.js) to use
-var burger = require("../models/burger.js");
+// add a '/' endpoint that redirects to the /index route
+router.get('/', function(req, res) {
+  res.redirect('/index');
+});
 
-// Create the routes and associated logic
-router.get("/", function(req, res) {
+router.get('/index', function(req, res) {
   burger.selectAll(function(data) {
     var hbsObject = {
       burgers: data
     };
-    res.render("index", hbsObject);
+    res.render('index', hbsObject);
   });
 });
 
-router.post("/burgers", function(req, res) {
-  burger.insertOne([
-    "burger_name"
-  ], [
-    req.body.burger_name
-  ], function(data) {
-    res.redirect("/");
+router.post('/burgers/insertOne', function(req, res) {
+  burger.insertOne(['burger_name', 'devoured'], [req.body.name, false], function() {
+    res.redirect('/index');
   });
 });
 
-router.put("/burgers/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
+router.put('/burgers/updateOne/:id', function(req, res) {
+  var condition = 'id = ' + req.params.id;
 
   burger.updateOne({
-    devoured: true
-  }, condition, function(data) {
-    res.redirect("/");
+    devoured: req.body.devoured
+  }, condition, function() {
+    res.redirect('/index');
   });
 });
 
-// Export routes for server.js
+// export the router (controller) back to the server
 module.exports = router;
